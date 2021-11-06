@@ -1,0 +1,139 @@
+---
+title: "R Homework On Data Type and Structure"
+author: "Ribka Maulidya Hafsari"
+date: "7/2/2021"
+output: html_document
+---
+<Jawaban> <-- ganti ini dengan jawaban temen2
+
+
+## Task 2 Problem Data Structure
+
+Dengan kumpulan data vector di bawah buatlah dataframe baru dengan nama df1 menggunakan fungsi `data.frame()`.
+1. Apakah ada error? Kalau ada bagaimana cara mengatasinya?
+<Ya, terdapat error. Solusinya menambahkan nilai pada vector nilai_pelajaran sehingga number of rows sesuai>
+2. Setelah mengatasi error tersebut, ubah nilai pelajaran untuk python menjadi 100 menggunakan index.
+3. Setelahnya bagi semua kolom nilai_pelajaran dengan angka 10 dan simpan menjadi df2
+4. Apakah ada jenis data structure lain yang sesuai untuk menggabungkan ketiga vector tersebut menjadi satu? Teman-teman lebih memilih jenis data structure apa?
+<Ya terdapat data structure lain seperti list dan matrix. Namun untuk matrix tidak dapat dioperasikan karena matrix tidak dapat menggabungkan tipe data lain, sehingga data structure yang dipilih adalah dataframe>
+
+```{r Task 2.1}
+mata_pelajaran <- c("R","Python","JavaScript","Probabilitas")
+nilai_pelajaran <- c(100,70,20)
+lulus <- c(TRUE,TRUE,FALSE,NA)
+##
+df1 <- data.frame(lulus,mata_pelajaran,nilai_pelajaran)
+## gabungkang ketiga vector menjadi dataframe
+
+```
+
+```{r Task 2.2}
+## mengatasi vector penyebab error terlebih dahulu 
+nilai_pelajaran <- c(100,70,20,0)
+
+## simpan menjadi df1
+df1 <- data.frame(mata_pelajaran,nilai_pelajaran,lulus)
+
+## ubah nilai python menjadi 100
+df1[2,2] <- 100
+
+
+## copy df1 pada df2
+
+df2 <- df1
+
+## kolom df2 nilai_pelajaran dibagi dengan 10 dan tetap mempertahankan kolom lainnya
+df2$nilai_pelajaran <- df2$nilai_pelajaran/10
+
+```
+
+```{r Task 2.4}
+## alternatif jenis data lain bila ada?
+
+## run ulang dan coba jenis lain seperti list / matrix
+mata_pelajaran <- c("R","Python","JavaScript","Probabilitas")
+nilai_pelajaran <- c(100,70,20,0)
+lulus <- c(TRUE,TRUE,FALSE,NA)
+
+l1 <- list(
+  mata_pelajaran,
+  nilai_pelajaran,
+  lulus)
+
+m1 <- matrix(
+  mata_pelajaran,
+  nilai_pelajaran,
+  lulus)
+
+
+```
+
+## Task 3 Problem Data Structure dan Data Type
+
+1. Menggunakan data mtcars dapatkan basic informasi menggunakan
+ - str
+ - summary
+ - dim
+ - dan lain-lain
+
+2. Melalui fungsi atas, apakah ada variable yang cocok dirubah menjadi `logical`? Copas mtcars menjadi `mtcars2` terlebih dahulu.
+<Ya, variable am dan vs cocok untuk dirubah dikarenakan nilai pada ke dua kolom berisi 1 atau 0>
+3. Pada mtcars2 coba rubah kolom `mpg` menjadi `integer`, apakah ada perubahan? Coba bandingkan dengan mtcars
+<Ya, terdapat perubahan pada kolom mpg setelah dirubah menjadi integer. Nilai pada kolom mpg di mtcars 2 berubah menjadi tanpa koma atau angka desimal>
+4. Buat variable vector baru yang mengkombinasikan kolom mtcars `mpg` dan `disp` dengan nama `v1`.
+5. Menggunakan `v1`, bentuk matrix dengan input `ncol = 4` dan simpan dengan nama `m2`. 
+
+```{r task 3.1}
+mtcars
+View(mtcars)
+str(mtcars)
+summary(mtcars)
+rownames(mtcars)
+dim(mtcars)
+
+### dll
+
+
+
+```
+
+```{r task 3.2 dan 3.3}
+## rubah variable/kolom yang cocok dirubah menjadi logical
+mtcars2 <- mtcars
+mtcars2$am<-as.logical(mtcars$am)
+mtcars2$vs<-as.logical(mtcars$vs)
+
+## rubah kolom mtcars2 mpg menjadi integer menggunakan fungsi as.?
+mtcars2$mpg<-as.integer(mtcars$mpg)
+
+```
+
+
+```{r task 3.4}
+## kombinasi mtcars mpg dan disp
+v1 <- c(mtcars$mpg ,mtcars$disp)
+m2 <- matrix(v1, ncol = 4)
+
+```
+
+
+## Task 4 Merubah jenis data type (tantangan)
+
+Terkadang sebagai data analis kita mendapatkan data dengan format yang sedikit kacau. Salah satu yang cukup sering adalah tipe data waktu.
+1. Tugas teman-teman merubah jenis data yang tidak sesuai ini menjadi data types date 
+2. Gabungkan dua vector tersebut menjadi dataframe dan simpan di df_date
+
+Hint: Untuk num_to_date gunakan origin 1970-01-01
+
+
+```{r}
+char_to_date <- c("20210110","20210201","20210112")
+char_to_date <- as.Date(char_to_date,"%Y%m%d")
+
+num_to_date <- c(14833,14831,14790)
+num_to_date<-as.Date(num_to_date, origin=as.Date("1970-01-01"))
+
+df_date <- data.frame(char_to_date,num_to_date)
+
+```
+
